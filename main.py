@@ -18,7 +18,7 @@ dp = Dispatcher()
 
 async def generate(prompt_text: str) -> str | None:
     try:
-        response = await client.images.async_generate(
+        response = await client.images.async_generate( 
             model="flux",
             prompt=prompt_text,
             response_format="url"
@@ -33,9 +33,8 @@ async def generate(prompt_text: str) -> str | None:
         print(f"Error: {e}")
         return None
 
-
 @dp.message()
-async def command_start_handler(message: types.Message) -> None:
+async def handle_text(message: types.Message) -> None:
     input_text = message.text
     print(f"Input: {input_text}")
 
@@ -47,7 +46,6 @@ async def command_start_handler(message: types.Message) -> None:
     else:
         await message.answer("Error")
 
-
 async def main() -> None:
     token = os.getenv('TOKEN')
     if not token:
@@ -56,7 +54,6 @@ async def main() -> None:
 
     bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
