@@ -36,7 +36,7 @@ async def generate(prompt_text: str) -> str | None:
 @dp.message()
 async def handle_text(message: types.Message) -> None:
     input_text = message.text
-    print(f"Input: {input_text}")
+    print(f"Input: {message.from_user.username}, promt: {input_text}")
 
     image_url = await generate(input_text)
 
